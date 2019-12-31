@@ -1,0 +1,10 @@
+venv/
+*.txt
+*.bak
+*.csv
+*.pem
+*.json
+build/
+dist/
+*.egg-info
+__pycache__/

@@ -1,0 +1,95 @@
+## MICOSOFT GRAPH ENDPOINTS
+### Base endpoints
+GRAPH_V1_BASE_URL = "https://graph.microsoft.com/v1.0"
+GRAPH_BETA_BASE_URL = "https://graph.microsoft.com/beta"
+
+### Retrieve user registration details
+### See:
+### https://docs.microsoft.com/en-us/graph/api/reportroot-list-credentialuserregistrationdetails?view=graph-rest-beta&tabs=http
+USER_REG_DETAILS_ENDPOINT = (GRAPH_BETA_BASE_URL +
+                             "/reports/"
+                             "credentialUserRegistrationDetails")
+
+### Retrieve attributes for specific user
+### See:
+### https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
+USER_GET_ENDPOINT = (GRAPH_V1_BASE_URL +
+                          "/users"
+                          "?$select="
+#                          "aboutMe,"
+#                          "accountEnabled,"
+#                          "ageGroup,"
+#                          "assignedLicenses,"
+#                          "assignedPlans,"
+#                          "birthday,"
+                           "businessPhones,"
+                           "city,"
+                           "companyName,"
+                           "country,"
+                           "createdDateTime,"
+                           "department,"
+                           "displayName,"
+                           #"employeeId,"
+#                          "faxNumber,"
+                           "givenName,"
+                           #"hireDate,"
+                           "id,"
+#                          "imAddresses,"
+#                          "interests,"
+                          "isResourceAccount,"
+                          "jobTitle,"
+                          "lastPasswordChangeDateTime,"
+                          #"legalAgeGroupClassification,"
+                          #"licenseAssignmentStates,"
+                          "mail,"
+                          #"mailboxSettings,"
+                          "mailNickname,"
+                          "mobilePhone,"
+                          #"mySite,"
+                          "officeLocation,"
+                          "onPremisesDistinguishedName,"
+                          "onPremisesDomainName,"
+                          "onPremisesExtensionAttributes,"
+                          "onPremisesImmutableId,"
+                          "onPremisesLastSyncDateTime,"
+                          "onPremisesProvisioningErrors,"
+                          "onPremisesSamAccountName,"
+                          "onPremisesSecurityIdentifier,"
+                          "onPremisesSyncEnabled,"
+                          "onPremisesUserPrincipalName,"
+                          "otherMails,"
+                          "passwordPolicies,"
+#                          "pastProjects,"
+                          "postalCode,"
+                          #"preferredDataLocation,"
+                          #"preferredLanguage,"
+                          #"preferredName,"
+                          "provisionedPlans,"
+                          "proxyAddresses,"
+                          #"responsibilities,"
+                          #"schools,"
+                          #"showInAddressList,"
+                          #"skills,"
+                          "signInSessionsValidFromDateTime,"
+                          "state,"
+                          "streetAddress,"
+                          "surname,"
+                          "usageLocation,"
+                          "userPrincipalName,"
+                          "userType")
+
+### Check Group Membership
+### See:
+### https://docs.microsoft.com/en-us/graph/api/user-checkmembergroups?view=graph-rest-1.0&tabs=http
+### Notes: You must post to this endpoint.
+CHECK_MEMBER_GROUPS_ENDPOINT = (GRAPH_V1_BASE_URL +
+                                "/{}/"
+                                "checkMemberGroups")
+
+### List transitive members
+### See:
+### https://docs.microsoft.com/en-us/graph/api/group-list-transitivemembers?view=graph-rest-1.0&tabs=http
+LIST_TRANSITIVE_MEMBERS_ENDPOINT = (GRAPH_V1_BASE_URL +
+                                    "/groups/"
+                                    "{}/"
+                                    "transitiveMembers")
