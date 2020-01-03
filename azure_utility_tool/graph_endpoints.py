@@ -93,3 +93,11 @@ LIST_TRANSITIVE_MEMBERS_ENDPOINT = (GRAPH_V1_BASE_URL +
                                     "/groups/"
                                     "{}/"
                                     "transitiveMembers")
+
+### List directoryAudits
+### See:
+### https://docs.microsoft.com/en-us/graph/api/directoryaudit-list?view=graph-rest-1.0&tabs=http
+LIST_DIRECTORY_AUDITS = (GRAPH_V1_BASE_URL +
+                         "/auditLogs/"
+                         "directoryAudits"
+                         "?&$filter=activityDateTime ge {}-{}-{}")

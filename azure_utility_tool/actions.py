@@ -17,6 +17,7 @@ import requests
 import logging
 import msal
 import json
+import datetime
 
 from azure_utility_tool.graph_endpoints import *
 from azure_utility_tool.utils import paginate
@@ -89,6 +90,25 @@ def list_all_users_mfa(parsed_args, config, app):
     for user in users_attr_info:
         print(json.dumps(user))
 
+def list_directory_audits(parsed_args, config, app):
+    """
+    This action will return all audit logs in the tenant for the
+    past day.
+    """
+    audit_entries = []
+    date = datetime.datetime.today()
+    yesterday = date - datetime.timedelta(days=1)
+    paginate(
+            LIST_DIRECTORY_AUDITS.format(yesterday.year,
+                                         yesterday.month,
+                                         yesterday.day),
+            audit_entries,
+            'value',
+            parsed_args,
+            config,
+            app)
+
+# Helper functions
 def _get_users_from_enforced_groups(parsed_args, config, app):
     users = []
     groups = config['MFA_ENFORCED_GROUPS']
