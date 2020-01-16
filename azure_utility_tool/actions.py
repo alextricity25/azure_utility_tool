@@ -108,6 +108,38 @@ def list_directory_audits(parsed_args, config, app):
             config,
             app)
 
+def list_groups_for_user(parsed_args, config, app):
+    """
+    This action will return a list of groups for a specified user
+    """
+    groups = []
+    payload = {"securityEnabledOnly": "true"}
+    paginate(
+            GET_MEMBER_GROUPS.format(parsed_args.user),
+            groups,
+            'value',
+            parsed_args,
+            config,
+            app,
+            payload=payload,
+            std_output=False)
+
+    group_names = []
+    for group_id in groups:
+        group_info = []
+        paginate(
+                GET_GROUP.format(group_id),
+                group_info,
+                'displayName',
+                parsed_args,
+                config,
+                app,
+                std_output=False)
+        group_names.append("".join(group_info))
+
+    for group in group_names:
+        print(group)
+
 # Helper functions
 def _get_users_from_enforced_groups(parsed_args, config, app):
     users = []

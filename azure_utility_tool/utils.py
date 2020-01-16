@@ -8,8 +8,9 @@ Description:
 import logging
 import requests
 import json
+import pdb
 
-def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True):
+def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}):
     """
     This methods takes and endpoint, and continues to make a get request
     so long as the @odata.nextLink entry is returned.
@@ -37,11 +38,21 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
             result = app.acquire_token_for_client(scopes=config["scope"])
 
         if "access_token" in result:
-            graph_data_response = requests.get(
-                    endpoint,
-                    headers={
-                        "Authorization": "Bearer " + result["access_token"]
-                    })
+            if payload:
+                graph_data_response = requests.post(
+                        endpoint,
+                        headers={
+                            "Authorization": "Bearer " + result["access_token"],
+                            "Content-Type": "application/json"
+                        },
+                        data=json.dumps(payload))
+                #pdb.set_trace()
+            else:
+                graph_data_response = requests.get(
+                        endpoint,
+                        headers={
+                            "Authorization": "Bearer " + result["access_token"]
+                        })
         graph_data = graph_data_response.json()
     else:
         graph_data = test_data
@@ -75,5 +86,6 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                 app,
                 transformer=transformer,
                 test_data=test_data,
-                std_output=std_output)
+                std_output=std_output,
+                payload=payload)
     return data

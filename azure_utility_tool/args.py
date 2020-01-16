@@ -23,6 +23,11 @@ def get_parser():
             action='store_true',
             required=False,
             help="Run a smoke test, without making API calls")
+    parser.add_argument(
+            '-u',
+            '--user',
+            required=False,
+            help="The userPrincipalName of a user")
     action_names = inspect.getmembers(actions, inspect.isfunction)
     parser.add_argument(
             'action',

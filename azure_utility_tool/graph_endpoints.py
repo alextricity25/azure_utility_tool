@@ -101,3 +101,18 @@ LIST_DIRECTORY_AUDITS = (GRAPH_V1_BASE_URL +
                          "/auditLogs/"
                          "directoryAudits"
                          "?&$filter=activityDateTime ge {}-{}-{}")
+
+### user:getMemberGroups
+### See:
+### https://docs.microsoft.com/en-us/graph/api/user-getmembergroups?view=graph-rest-1.0&tabs=http
+GET_MEMBER_GROUPS = (GRAPH_V1_BASE_URL +
+                     "/users/"
+                     "{}/"
+                     "getMemberGroups")
+
+### Get group
+### See:
+### https://docs.microsoft.com/en-us/graph/api/group-get?view=graph-rest-1.0&tabs=http
+GET_GROUP = (GRAPH_V1_BASE_URL +
+            "/groups/"
+            "{}")
