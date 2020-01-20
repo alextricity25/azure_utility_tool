@@ -85,6 +85,8 @@ def list_all_users_mfa(parsed_args, config, app):
         for enforced_user in mfa_enforced_users:
             if enforced_user["userPrincipalName"] == user["userPrincipalName"]:
                 user["mfaEnforced"] = "True"
+            else:
+                user["mfaEnforced"] = "False"
     # Output the users
     # TODO: Make output drivers
     for user in users_attr_info:
