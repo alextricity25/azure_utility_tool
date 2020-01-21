@@ -22,6 +22,7 @@ import datetime
 from azure_utility_tool.graph_endpoints import *
 from azure_utility_tool.utils import paginate
 from azure_utility_tool.test_cases import TestCases
+from azure_utility_tool.transformers import expand_onPremisesExtensionAttributes
 
 def list_all_users(parsed_args, config, app):
     """
@@ -71,7 +72,8 @@ def list_all_users_mfa(parsed_args, config, app):
             app,
             test_data=TestCases().
                     get_test_user_graph_data(),
-            std_output=False)
+            std_output=False,
+            transformer=expand_onPremisesExtensionAttributes)
     # Merge the reg info with the user attr info
     # Get users in MFA_ENFORCED_GROUPS
     mfa_enforced_users = _get_users_from_enforced_groups(

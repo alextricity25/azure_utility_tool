@@ -19,3 +19,16 @@ def make_upn_index(entry):
         if key == "userPrincipalName":
             return { value: entry }
     raise Exception("Cannot find userPrincipalName")
+
+def expand_onPremisesExtensionAttributes(entry):
+    """
+    entry - a dictionary that must have the "onPremisesExtensionAttributes" key defined
+
+    This transformer takes a dictionary, and returns the same dictionary, but with the
+    "onPremisesExtensionAttributes" value expanded into it's own key: value pair.
+    This value must initially be a JSON.
+    """
+    for key, value in entry.get("onPremisesExtensionAttributes", {}).items():
+        entry[key] = value
+    entry.pop("onPremisesExtensionAttributes", None)
+    return entry
