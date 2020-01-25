@@ -9,11 +9,14 @@ Description:
 import argparse
 import inspect
 import pprint
+import pdb
 from azure_utility_tool import actions
+from argparse import RawTextHelpFormatter
 
 def get_parser():
     parser = argparse.ArgumentParser(
             usage='%(prog)s',
+            formatter_class=RawTextHelpFormatter,
             description=("You can use AUT to perform several useful things"
                          "against an Azure Active Directory tenant")
             )
@@ -33,5 +36,17 @@ def get_parser():
             'action',
             choices=[action for action, function in action_names
                      if 'list' in action],
-            help="The command to run")
+            help=_build_action_help_string())
     return parser
+
+def _build_action_help_string():
+    help_string = ""
+    action_names = inspect.getmembers(actions, inspect.isfunction)
+    #pdb.set_trace()
+    for action, function in action_names:
+        if 'list' in action:
+            help_string = help_string + "{} - {}\n".format(
+                        action,
+                        function.__doc__.replace('\n', '').strip().
+                            replace('    ', ' '))
+    return help_string
