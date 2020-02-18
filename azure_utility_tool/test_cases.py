@@ -210,3 +210,29 @@ class TestCases():
             'userPrincipalName': 'jpau345@wcf.company.com'}]}
 
         return data
+
+    def get_group_test_data(self):
+        data = {
+            "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#groups/$entity",
+            "createdDateTime": "2011-07-26T23:48:51Z",
+            "creationOptions": [],
+            "displayName": "Clone Troopers",
+            "groupTypes": [],
+            "id": "baavc5f30-f44b-4903-8237-cb630b1690ce",
+            "mail": "Clone-Troopers@firstorder.com",
+            "mailNickname": "CTBoss",
+            "onPremisesDomainName": "firstorder.com",
+            "onPremisesLastSyncDateTime": "2023-03-19T22:16:21Z",
+            "onPremisesNetBiosName": "NA",
+            "onPremisesProvisioningErrors": [],
+            "onPremisesSamAccountName": "Clone-Troopers",
+            "onPremisesSecurityIdentifier": "S-1-5-21-1645522239-879982540-1417001233-605714",
+            "proxyAddresses": [
+            "SMTP:Clone-Troopers@firstorder.com"
+            ],
+            "renewedDateTime": "2012-07-26T23:48:51Z",
+            "resourceBehaviorOptions": [],
+            "resourceProvisioningOptions": [],
+            "securityIdentifier": "S-1-12-1-3133127136-1221695915-1674307470-3465549323",
+            }
+        return data
