@@ -18,6 +18,7 @@ import logging
 import msal
 import json
 import datetime
+import pdb
 
 from azure_utility_tool.graph_endpoints import *
 from azure_utility_tool.utils import paginate
@@ -80,13 +81,33 @@ def list_all_users_mfa(parsed_args, config, app):
                                             parsed_args,
                                             config,
                                             app)
+    # Get mfa enforced group friendly name
+    mfa_group_names = _get_mfa_enforced_groups_displayname(parsed_args, config, app)
+
+    # Iterating through all the users
     for user in users_attr_info:
         user_mfa_reg_info = users_reg_info.get(user["userPrincipalName"], '')
+        # This flag is used to determine if the user is part of the MFA_ENFORCED_GROUPS
         user["mfaEnforced"] = "False"
-        user.update(user_mfa_reg_info)
-        # Check to see if user is enforced
+
+        # Adding details of the usage of SSPR and MFA per
+        # credentialUserRegistrationDetails API:
+        # https://docs.microsoft.com/en-us/graph/api/reportroot-list-credentialuserregistrationdetails?view=graph-rest-beta&tabs=http
+        user_reg_info = users_reg_info.get(user["userPrincipalName"], {"ERROR": "NO REG INFO"})
+        user["authMethods"] = user_reg_info.get("authMethods", "ERROR: No authMethods")
+        user["isRegistered"] = user_reg_info.get("isRegistered", "ERROR: No isRegistered info")
+        user["isEnabled"] = user_reg_info.get("isEnabled", "ERROR: No isEnabled info")
+        user["isCapable"] = user_reg_info.get("isCapable", "ERROR: No isCapable info")
+        user["isMfaRegistered"] = user_reg_info.get("isMfaRegistered", "ERROR: No isMfaRegistered info")
+        user["mfaEnforcedGroups"] = []
+
+
+        # Check to see if user is a member of the mfa enforced groups. If so,
+        # then appened it to the 'mfaEnforcedGroups' attribute
         for enforced_user in mfa_enforced_users:
             if enforced_user["userPrincipalName"] == user["userPrincipalName"]:
+                # TODO Add error handling here when getting mfa enforced group name
+                user["mfaEnforcedGroups"].append(mfa_group_names[enforced_user["mfaEnforcedGroup"]])
                 user["mfaEnforced"] = "True"
     # Output the users
     # TODO: Make output drivers
@@ -146,7 +167,7 @@ def list_groups_for_user(parsed_args, config, app):
 # Helper functions
 def _get_users_from_enforced_groups(parsed_args, config, app):
     users = []
-    groups = config['MFA_ENFORCED_GROUPS']
+    groups = config['MFA_ENFORCED_GROUPS'].copy()
     while groups:
         members = []
         group = groups.pop()
@@ -162,7 +183,27 @@ def _get_users_from_enforced_groups(parsed_args, config, app):
                 std_output=False)
         for member in members:
             if 'user' in member["@odata.type"]:
+                member['mfaEnforcedGroup'] = group
                 users.append(member)
             if 'group' in member["@odata.type"]:
                 groups.append(member["id"])
     return users
+
+def _get_mfa_enforced_groups_displayname(parsed_args, config, app):
+
+    MFA_ENFORCED_GROUPS_WITH_DISPLAY_NAME = {}
+    for group in config["MFA_ENFORCED_GROUPS"]:
+        group_info = []
+        paginate(
+                GET_GROUP.format(group),
+                group_info,
+                'displayName',
+                parsed_args,
+                config,
+                app,
+                test_data=TestCases().get_group_test_data(),
+                std_output=False)
+        #pdb.set_trace()
+        MFA_ENFORCED_GROUPS_WITH_DISPLAY_NAME[group] = "".join(group_info)
+
+    return MFA_ENFORCED_GROUPS_WITH_DISPLAY_NAME
