@@ -60,8 +60,8 @@ def list_all_users_mfa(parsed_args, config, app):
     # Convert the user_reg_data to a dictionary indexable by user's UPN
     users_reg_info = {}
     for user in user_reg_data:
+        #print(user)
         users_reg_info[user["userPrincipalName"]] = user
-
     # Get user attributes
     users_attr_info = []
     paginate(
@@ -86,19 +86,20 @@ def list_all_users_mfa(parsed_args, config, app):
 
     # Iterating through all the users
     for user in users_attr_info:
-        user_mfa_reg_info = users_reg_info.get(user["userPrincipalName"], '')
         # This flag is used to determine if the user is part of the MFA_ENFORCED_GROUPS
         user["mfaEnforced"] = "False"
 
         # Adding details of the usage of SSPR and MFA per
         # credentialUserRegistrationDetails API:
         # https://docs.microsoft.com/en-us/graph/api/reportroot-list-credentialuserregistrationdetails?view=graph-rest-beta&tabs=http
-        user_reg_info = users_reg_info.get(user["userPrincipalName"], {"ERROR": "NO REG INFO"})
-        user["authMethods"] = user_reg_info.get("authMethods", "ERROR: No authMethods")
-        user["isRegistered"] = user_reg_info.get("isRegistered", "ERROR: No isRegistered info")
-        user["isEnabled"] = user_reg_info.get("isEnabled", "ERROR: No isEnabled info")
-        user["isCapable"] = user_reg_info.get("isCapable", "ERROR: No isCapable info")
-        user["isMfaRegistered"] = user_reg_info.get("isMfaRegistered", "ERROR: No isMfaRegistered info")
+        user_mfa_reg_info = users_reg_info.get(user["userPrincipalName"], {})
+        if not user_mfa_reg_info:
+            logging.error("Unable to get registration details for user {}".format(user["userPrincipalName"]))
+        user["authMethods"] = user_mfa_reg_info.get("authMethods", "ERROR: No authMethods")
+        user["isRegistered"] = user_mfa_reg_info.get("isRegistered", "ERROR: No isRegistered info")
+        user["isEnabled"] = user_mfa_reg_info.get("isEnabled", "ERROR: No isEnabled info")
+        user["isCapable"] = user_mfa_reg_info.get("isCapable", "ERROR: No isCapable info")
+        user["isMfaRegistered"] = user_mfa_reg_info.get("isMfaRegistered", "ERROR: No isMfaRegistered info")
         user["mfaEnforcedGroups"] = []
 
 
