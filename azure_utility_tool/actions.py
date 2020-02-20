@@ -23,6 +23,7 @@ import pdb
 from azure_utility_tool.graph_endpoints import *
 from azure_utility_tool.utils import paginate
 from azure_utility_tool.test_cases import TestCases
+from azure_utility_tool.file_logger import file_logger
 from azure_utility_tool.transformers import expand_onPremisesExtensionAttributes
 
 def list_all_users(parsed_args, config, app):
@@ -56,12 +57,16 @@ def list_all_users_mfa(parsed_args, config, app):
             app,
             test_data=TestCases().
                         get_test_user_reg_info_graph_data(),
-            std_output=False)
+            std_output=False,
+            throttle=1)
     # Convert the user_reg_data to a dictionary indexable by user's UPN
     users_reg_info = {}
     for user in user_reg_data:
         #print(user)
         users_reg_info[user["userPrincipalName"]] = user
+    # Logging users_reg_info if file logging is on
+    if parsed_args.log:
+        file_logger.to_file("user_mfa_reg_info", users_reg_info)
     # Get user attributes
     users_attr_info = []
     paginate(
@@ -93,8 +98,9 @@ def list_all_users_mfa(parsed_args, config, app):
         # credentialUserRegistrationDetails API:
         # https://docs.microsoft.com/en-us/graph/api/reportroot-list-credentialuserregistrationdetails?view=graph-rest-beta&tabs=http
         user_mfa_reg_info = users_reg_info.get(user["userPrincipalName"], {})
-        if not user_mfa_reg_info:
+        if user_mfa_reg_info == {}:
             logging.error("Unable to get registration details for user {}".format(user["userPrincipalName"]))
+
         user["authMethods"] = user_mfa_reg_info.get("authMethods", "ERROR: No authMethods")
         user["isRegistered"] = user_mfa_reg_info.get("isRegistered", "ERROR: No isRegistered info")
         user["isEnabled"] = user_mfa_reg_info.get("isEnabled", "ERROR: No isEnabled info")
@@ -114,6 +120,25 @@ def list_all_users_mfa(parsed_args, config, app):
     # TODO: Make output drivers
     for user in users_attr_info:
         print(json.dumps(user))
+
+def list_credential_user_registration_details(
+        parsed_args,
+        config,
+        app):
+    """
+    This action lists credentialUserRegistrationDetails
+    objects across the tenant
+    """
+    user_reg_data = []
+    paginate(
+            USER_REG_DETAILS_ENDPOINT,
+            user_reg_data,
+            'value',
+            parsed_args,
+            config,
+            app,
+            test_data=TestCases().
+                        get_test_user_reg_info_graph_data())
 
 def list_directory_audits(parsed_args, config, app):
     """

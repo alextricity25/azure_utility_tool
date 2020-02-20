@@ -8,9 +8,10 @@ Description:
 import logging
 import requests
 import json
+import time
 import pdb
 
-def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}):
+def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}, throttle=0):
     """
     This methods takes and endpoint, and continues to make a get request
     so long as the @odata.nextLink entry is returned.
@@ -26,6 +27,10 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
         test_data - If test_data is provided, then no API calls are made
                     and the response is assumed to be test_data. This is
                     for smoke tests
+        std_output - Boolean. Will print results as they are retrieved. Set
+                     to false otherwise.
+        payload - Used for POST requests on an endpoint
+        throttle - How to long to wait, in seconds, between each API call.
     """
     # Make the first request
     if not parsed_args.smoke:
@@ -77,6 +82,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
 
     # Recursively follow nextLink
     if graph_data.get("@odata.nextLink", ""):
+        time.sleep(throttle)
         return paginate(
                 graph_data["@odata.nextLink"],
                 data,

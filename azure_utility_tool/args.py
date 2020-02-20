@@ -31,6 +31,12 @@ def get_parser():
             '--user',
             required=False,
             help="The userPrincipalName of a user")
+    parser.add_argument(
+            '-l',
+            '--log',
+            required=False,
+            action='store_true',
+            help="Log the contents of internal data structures in /var/log/aut/")
     action_names = inspect.getmembers(actions, inspect.isfunction)
     parser.add_argument(
             'action',
