@@ -57,8 +57,8 @@ def list_all_users_mfa(parsed_args, config, app):
             app,
             test_data=TestCases().
                         get_test_user_reg_info_graph_data(),
-            std_output=False,
-            throttle=1)
+            std_output=False)
+
     # Convert the user_reg_data to a dictionary indexable by user's UPN
     users_reg_info = {}
     for user in user_reg_data:
@@ -67,6 +67,7 @@ def list_all_users_mfa(parsed_args, config, app):
     # Logging users_reg_info if file logging is on
     if parsed_args.log:
         file_logger.to_file("user_mfa_reg_info", users_reg_info)
+        file_logger.to_file("user_reg_data", user_reg_data)
     # Get user attributes
     users_attr_info = []
     paginate(
@@ -80,7 +81,9 @@ def list_all_users_mfa(parsed_args, config, app):
                     get_test_user_graph_data(),
             std_output=False,
             transformer=expand_onPremisesExtensionAttributes)
-    # Merge the reg info with the user attr info
+    # Logging
+    if parsed_args.log:
+        file_logger.to_file("users_attr_info", users_attr_info)
     # Get users in MFA_ENFORCED_GROUPS
     mfa_enforced_users = _get_users_from_enforced_groups(
                                             parsed_args,
@@ -107,8 +110,6 @@ def list_all_users_mfa(parsed_args, config, app):
         user["isCapable"] = user_mfa_reg_info.get("isCapable", "ERROR: No isCapable info")
         user["isMfaRegistered"] = user_mfa_reg_info.get("isMfaRegistered", "ERROR: No isMfaRegistered info")
         user["mfaEnforcedGroups"] = []
-
-
         # Check to see if user is a member of the mfa enforced groups. If so,
         # then appened it to the 'mfaEnforcedGroups' attribute
         for enforced_user in mfa_enforced_users:
@@ -173,7 +174,6 @@ def list_groups_for_user(parsed_args, config, app):
             app,
             payload=payload,
             std_output=False)
-
     group_names = []
     for group_id in groups:
         group_info = []
@@ -229,7 +229,6 @@ def _get_mfa_enforced_groups_displayname(parsed_args, config, app):
                 app,
                 test_data=TestCases().get_group_test_data(),
                 std_output=False)
-        #pdb.set_trace()
         MFA_ENFORCED_GROUPS_WITH_DISPLAY_NAME[group] = "".join(group_info)
 
     return MFA_ENFORCED_GROUPS_WITH_DISPLAY_NAME
