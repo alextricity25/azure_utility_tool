@@ -59,6 +59,8 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                             "Authorization": "Bearer " + result["access_token"]
                         })
         graph_data = graph_data_response.json()
+        if graph_data_response.status_code != 200:
+            logging.error(graph_data_response.content)
     else:
         graph_data = test_data
 
@@ -93,5 +95,6 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                 transformer=transformer,
                 test_data=test_data,
                 std_output=std_output,
-                payload=payload)
+                payload=payload,
+                throttle=throttle)
     return data
