@@ -40,4 +40,8 @@ def to_file(filename, data):
     with open(filepath, 'w') as fp:
         if data is not None and isinstance(data, dict):
             fp.write(json.dumps(data, indent=4))
+        elif isinstance(data, list) and data is not None:
+            for item in data:
+                if isinstance(item, dict):
+                    fp.write(json.dumps(item) + "\n")
 
