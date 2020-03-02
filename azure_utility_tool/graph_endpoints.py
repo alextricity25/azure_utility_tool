@@ -75,7 +75,7 @@ USER_GET_ENDPOINT = (GRAPH_V1_BASE_URL +
                           #"streetAddress,"
                           #"surname,"
                           "usageLocation,"
-                          "userPrincipalName,"
+                          "userPrincipalName,")
                           #"userType")
 
 ### Check Group Membership
