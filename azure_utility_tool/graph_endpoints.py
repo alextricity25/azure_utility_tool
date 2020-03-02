@@ -6,7 +6,7 @@ GRAPH_BETA_BASE_URL = "https://graph.microsoft.com/beta"
 ### Retrieve user registration details
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/reportroot-list-credentialuserregistrationdetails?view=graph-rest-beta&tabs=http
-USER_REG_DETAILS_ENDPOINT = (GRAPH_BETA_BASE_URL +
+USER_REG_DETAILS = (GRAPH_BETA_BASE_URL +
                              "/reports/"
                              "credentialUserRegistrationDetails")
 
@@ -19,19 +19,19 @@ USER_GET_ENDPOINT = (GRAPH_V1_BASE_URL +
 #                          "aboutMe,"
                           "accountEnabled,"
 #                          "ageGroup,"
-#                          "assignedLicenses,"
+                          #"assignedLicenses,"
 #                          "assignedPlans,"
 #                          "birthday,"
                            #"businessPhones,"
                            #"city,"
                            "companyName,"
                            "country,"
-                           "createdDateTime,"
-                           "department,"
+                           #"createdDateTime,"
+                           #"department,"
                            "displayName,"
                            #"employeeId,"
 #                          "faxNumber,"
-                           "givenName,"
+                           #"givenName,"
                            #"hireDate,"
                            "id,"
 #                          "imAddresses,"
@@ -43,13 +43,13 @@ USER_GET_ENDPOINT = (GRAPH_V1_BASE_URL +
                           #"licenseAssignmentStates,"
                           "mail,"
                           #"mailboxSettings,"
-                          "mailNickname,"
-                          "mobilePhone,"
+                          #"mailNickname,"
+                          #"mobilePhone,"
                           #"mySite,"
                           "officeLocation,"
                           #"onPremisesDistinguishedName,"
                           #"onPremisesDomainName,"
-                          #"onPremisesExtensionAttributes,"
+                          "onPremisesExtensionAttributes,"
                           #"onPremisesImmutableId,"
                           #"onPremisesLastSyncDateTime,"
                           #"onPremisesProvisioningErrors,"
@@ -71,12 +71,12 @@ USER_GET_ENDPOINT = (GRAPH_V1_BASE_URL +
                           #"showInAddressList,"
                           #"skills,"
                           #"signInSessionsValidFromDateTime,"
-                          "state,"
+                          #"state,"
                           #"streetAddress,"
-                          "surname,"
+                          #"surname,"
                           "usageLocation,"
                           "userPrincipalName,"
-                          "userType")
+                          #"userType")
 
 ### Check Group Membership
 ### See:
@@ -89,7 +89,7 @@ CHECK_MEMBER_GROUPS_ENDPOINT = (GRAPH_V1_BASE_URL +
 ### List transitive members
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/group-list-transitivemembers?view=graph-rest-1.0&tabs=http
-LIST_TRANSITIVE_MEMBERS_ENDPOINT = (GRAPH_V1_BASE_URL +
+GROUP_LIST_TRANSITIVEMEMBERS = (GRAPH_V1_BASE_URL +
                                     "/groups/"
                                     "{}/"
                                     "transitiveMembers")
@@ -97,7 +97,7 @@ LIST_TRANSITIVE_MEMBERS_ENDPOINT = (GRAPH_V1_BASE_URL +
 ### List directoryAudits
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/directoryaudit-list?view=graph-rest-1.0&tabs=http
-LIST_DIRECTORY_AUDITS = (GRAPH_V1_BASE_URL +
+DIRECTORYAUDIT_LIST = (GRAPH_V1_BASE_URL +
                          "/auditLogs/"
                          "directoryAudits"
                          "?&$filter=activityDateTime ge {}-{}-{}")
@@ -105,7 +105,7 @@ LIST_DIRECTORY_AUDITS = (GRAPH_V1_BASE_URL +
 ### user:getMemberGroups
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/user-getmembergroups?view=graph-rest-1.0&tabs=http
-GET_MEMBER_GROUPS = (GRAPH_V1_BASE_URL +
+USER_GETMEMBERGROUPS = (GRAPH_V1_BASE_URL +
                      "/users/"
                      "{}/"
                      "getMemberGroups")
@@ -113,6 +113,6 @@ GET_MEMBER_GROUPS = (GRAPH_V1_BASE_URL +
 ### Get group
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/group-get?view=graph-rest-1.0&tabs=http
-GET_GROUP = (GRAPH_V1_BASE_URL +
+GROUP_GET = (GRAPH_V1_BASE_URL +
             "/groups/"
             "{}")
