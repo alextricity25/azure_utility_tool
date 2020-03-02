@@ -61,6 +61,31 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
         graph_data = graph_data_response.json()
         if graph_data_response.status_code != 200:
             logging.error(graph_data_response.content)
+            # Retrying once more if failed
+            time.sleep(5)
+            result = app.acquire_token_for_client(scopes=config["scope"])
+            if "access_token" in result:
+                if payload:
+                    graph_data_response = requests.post(
+                            endpoint,
+                            headers={
+                                "Authorization": "Bearer " + result["access_token"],
+                                "Content-Type": "application/json"
+                            },
+                            data=json.dumps(payload))
+                    #pdb.set_trace()
+                else:
+                    graph_data_response = requests.get(
+                            endpoint,
+                            headers={
+                                "Authorization": "Bearer " + result["access_token"]
+                            })
+            # Exit program if retry fails
+            if graph_data_response.status_code != 200:
+                print("PROGRAM FAILED EVEN AFTER RETRY!")
+                exit()
+        graph_data = graph_data_response.json()
+
     else:
         graph_data = test_data
 
@@ -80,7 +105,10 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
             print(json.dumps(entry))
 
     # Shove the data returned from the endpoint into the data variable
-    data.extend(graph_data.get(key, ""))
+    if key == '':
+        data.append(graph_data)
+    else:
+        data.extend(graph_data.get(key, ""))
 
     # Recursively follow nextLink
     if graph_data.get("@odata.nextLink", ""):

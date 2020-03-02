@@ -7,12 +7,24 @@ Description:
 """
 
 import argparse
-import inspect
+import importlib
 import pprint
 import pdb
-from azure_utility_tool import actions
 from argparse import RawTextHelpFormatter
 
+SUPPORTED_ACTIONS = {
+        "list_credential_user_registration_details": None,
+        "list_directory_audits": None,
+        "list_groups_for_user": None,
+        "list_all_users": None,
+        "list_all_users_mfa": None,
+        "get_users_from_enforced_groups": None,
+        }
+
+# Importing supported actions
+for action in SUPPORTED_ACTIONS.keys():
+    SUPPORTED_ACTIONS[action] = importlib.import_module("actions.{}".format(action), package="azure_utility_tool")
+    
 def get_parser():
     parser = argparse.ArgumentParser(
             usage='%(prog)s',
@@ -37,22 +49,22 @@ def get_parser():
             required=False,
             action='store_true',
             help="Log the contents of internal data structures in /var/log/aut/")
-    action_names = inspect.getmembers(actions, inspect.isfunction)
     parser.add_argument(
             'action',
-            choices=[action for action, function in action_names
-                     if 'list' in action],
+            choices=SUPPORTED_ACTIONS.keys(),
             help=_build_action_help_string())
+    parser.add_argument(
+            '-o',
+            '--output',
+            required=True,
+            help="The output module to use")
     return parser
 
 def _build_action_help_string():
     help_string = ""
-    action_names = inspect.getmembers(actions, inspect.isfunction)
-    #pdb.set_trace()
-    for action, function in action_names:
-        if 'list' in action:
-            help_string = help_string + "{} - {}\n".format(
-                        action,
-                        function.__doc__.replace('\n', '').strip().
-                            replace('    ', ' '))
+    for action, module in SUPPORTED_ACTIONS.items():
+        help_string = help_string + "{} - {}\n".format(
+                    action,
+                    getattr(module, action).__doc__.replace('\n', '').strip().
+                        replace('    ', ' '))
     return help_string
