@@ -19,6 +19,7 @@ SUPPORTED_ACTIONS = {
         "list_all_users": None,
         "list_all_users_mfa": None,
         "get_users_from_enforced_groups": None,
+        "get_upn_from_id": None,
         }
 
 # Importing supported actions
@@ -58,6 +59,11 @@ def get_parser():
             '--output',
             required=True,
             help="The output module to use")
+    parser.add_argument(
+            '-i',
+            '--input-file',
+            required=False,
+            help="The input file. Currently only supports one column of data")
     return parser
 
 def _build_action_help_string():

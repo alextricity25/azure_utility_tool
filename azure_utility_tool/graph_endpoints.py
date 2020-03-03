@@ -9,8 +9,14 @@ GRAPH_BETA_BASE_URL = "https://graph.microsoft.com/beta"
 USER_REG_DETAILS = (GRAPH_BETA_BASE_URL +
                              "/reports/"
                              "credentialUserRegistrationDetails")
+### Retrive attributes for a specific user
+### See:
+### https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
+ONE_USER_GET = (GRAPH_V1_BASE_URL +
+                    "/users"
+                    "?$filter=startswith(userPrincipalName, '{}')")
 
-### Retrieve attributes for specific user
+### Retrieve attributes for all users
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/user-get?view=graph-rest-1.0&tabs=http
 USER_GET_ENDPOINT = (GRAPH_V1_BASE_URL +
