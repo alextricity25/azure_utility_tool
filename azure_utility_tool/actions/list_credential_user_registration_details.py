@@ -23,7 +23,7 @@ def list_credential_user_registration_details(
     userPrincipalName
     """
     user_reg_data = []
-    paginate(
+    paginate_result = paginate(
             USER_REG_DETAILS,
             user_reg_data,
             'value',
@@ -33,6 +33,26 @@ def list_credential_user_registration_details(
             test_data=TestCases().
                 get_test_user_reg_info_graph_data(),
             std_output=False)
+
+    # Retry if request failed
+    retries = config["MAX_RETRIES"]
+    current_retry = 1
+    while retries and paginate_result == "FAILED":
+        user_reg_data = []
+        paginate_result = paginate(
+                USER_REG_DETAILS,
+                user_reg_data,
+                'value',
+                parsed_args,
+                config,
+                app,
+                test_data=TestCases().
+                    get_test_user_reg_info_graph_data(),
+                std_output=False,
+                retry_count=current_retry)
+        retries -= 1
+        current_retry += 1
+
     user_reg_details = {}
     for user in user_reg_data:
         user_reg_details[user["userPrincipalName"]] = user

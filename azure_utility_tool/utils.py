@@ -11,7 +11,7 @@ import json
 import time
 import pdb
 
-def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}, throttle=0):
+def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}, throttle=0, retry_count=0):
     """
     This methods takes and endpoint, and continues to make a get request
     so long as the @odata.nextLink entry is returned.
@@ -44,6 +44,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
 
         if "access_token" in result:
             if payload:
+                logging.info("Retry count is {}".format(retry_count))
                 graph_data_response = requests.post(
                         endpoint,
                         headers={
@@ -53,6 +54,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                         data=json.dumps(payload))
                 #pdb.set_trace()
             else:
+                logging.info("Retry count is {}".format(retry_count))
                 graph_data_response = requests.get(
                         endpoint,
                         headers={
@@ -66,6 +68,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
             result = app.acquire_token_for_client(scopes=config["scope"])
             if "access_token" in result:
                 if payload:
+                    logging.info("Retry count is {}".format(retry_count))
                     graph_data_response = requests.post(
                             endpoint,
                             headers={
@@ -75,6 +78,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                             data=json.dumps(payload))
                     #pdb.set_trace()
                 else:
+                    logging.info("Retry count is {}".format(retry_count))
                     graph_data_response = requests.get(
                             endpoint,
                             headers={
@@ -83,7 +87,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
             # Exit program if retry fails
             if graph_data_response.status_code != 200:
                 print("PROGRAM FAILED EVEN AFTER RETRY!")
-                exit()
+                return "FAILED"
         graph_data = graph_data_response.json()
 
     else:
@@ -124,5 +128,6 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                 test_data=test_data,
                 std_output=std_output,
                 payload=payload,
-                throttle=throttle)
+                throttle=throttle,
+                retry_count=retry_count)
     return data
