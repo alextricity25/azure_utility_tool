@@ -64,6 +64,12 @@ def get_parser():
             '--input-file',
             required=False,
             help="The input file. Currently only supports one column of data")
+    parser.add_argument(
+            '-p',
+            '--pub',
+            required=False,
+            choices=['sharepoint'],
+            help="Where to publish the results, if a file is outputed")
     return parser
 
 def _build_action_help_string():
