@@ -35,7 +35,7 @@ class TestCases():
                                               'extensionAttribute9': None},
             'postalCode': '000000',
             'state': 'Kansas',
-            'usageLocation': 'US',
+            'usageLocation': 'GB',
             'userPrincipalName': 'lukeskywalker@kc.company.com',
             'userType': None},
            {'city': None,

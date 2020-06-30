@@ -5,7 +5,7 @@ Date: 02/21/20
 Description:
     This action will return all the users in the MFA_ENFORCED_GROUPS
 """
-from azure_utility_tool.graph_endpoints import GROUP_LIST_TRANSITIVEMEMBERS
+from azure_utility_tool.graph_endpoints import GROUP_LIST_TRANSITIVEMEMBERS, GROUP_GET
 from azure_utility_tool.utils import paginate
 from azure_utility_tool.test_cases import TestCases
 
@@ -44,3 +44,13 @@ def get_users_from_enforced_groups(parsed_args, config, app):
             users_dict[user["userPrincipalName"]]["mfaEnforcedGroups"] = [user["mfaEnforcedGroup"]]
 
     return users_dict
+
+def _get_group_friendly_name():
+    """
+    Returns a dictionary of id and name mappings for MFA_ENFORCED_GROUPS.
+    """
+
+    #for group_id in config["MFA_ENFORCED_GROUPS"]:
+        
+    #MFA_ENFORCED_GROUPS_FRIENDLY = {
+            

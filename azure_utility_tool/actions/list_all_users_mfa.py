@@ -26,8 +26,8 @@ def list_all_users_mfa(parsed_args, config, app):
     for upn, user_details in users_attribute_details.items():
         user_reg_details = users_reg_details.get(upn, {})
         user_details['isCapable'] = user_reg_details.get('isCapable', "No isCapable field for user")
-        user_details['isEnabled'] = user_reg_details.get('isEnabled', "No isEnabled field for user")
-        user_details['isRegistered'] = user_reg_details.get('isRegistered', "No isRegistered field for user")
+        user_details['isSSPREnabled'] = user_reg_details.get('isEnabled', "No isEnabled field for user")
+        user_details['isSSPRRegistered'] = user_reg_details.get('isRegistered', "No isRegistered field for user")
         user_details['isMfaRegistered'] = user_reg_details.get('isMfaRegistered', "No isMfaRegistered field for user")
         user_details['authMethods'] = user_reg_details.get('authMethods', "No authMethods field for user")
         user_details["isMfaEnforced"] = "False"

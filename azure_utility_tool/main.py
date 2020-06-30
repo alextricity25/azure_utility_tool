@@ -17,6 +17,7 @@ import importlib
 import pdb
 from azure_utility_tool import config
 from azure_utility_tool.args import get_parser
+from azure_utility_tool import apply_filters
 
 # Importing actions
 SUPPORTED_ACTIONS = {
@@ -60,7 +61,9 @@ else:
 
 # Run action
 result = getattr(SUPPORTED_ACTIONS[parsed_args.action], parsed_args.action)(parsed_args, config, app)
+result = apply_filters.filter_result(result, config)
 output = getattr(SUPPORTED_OUTPUTS[parsed_args.output], parsed_args.output)(parsed_args.action, result)
 #result = getattr(, parsed_args.action)#(parsed_args, config, app)
 #pprint.pprint(result)
-print("FINISHED SUCCESSFULLY!")
+#print("FINISHED SUCCESSFULLY!")
+#logging.info("FINISHED SUCCESSFULLY!")
