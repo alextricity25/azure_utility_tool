@@ -21,12 +21,14 @@ $ pip install -r requirements.txt
 $ pip install -e
 ```
 * Create the directories needed with correct permissions
+
 When the CSV output feature is used, AUT creates reports in `/mfa_reports/csv/`
 You must ensure this directory exists with proper permissions
 ```sh
 $ mkdir -p /mfa_reports/csv
 ```
 * Configure the program
+
 AUT needs a valid client application registration in an Azure directory before it can run.
 The client requires a certificate, as this is the only form of authentication that it supports.
 Once you have created a certificate (self-signed is fine), then upload it to the Azure application
