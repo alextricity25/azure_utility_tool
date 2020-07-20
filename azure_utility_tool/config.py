@@ -16,11 +16,11 @@ import os
 
 from azure_utility_tool.exceptions import ConfigFileNotFound
 
-def get_config():
-    CONFIG_PATH = os.path.expanduser("~/.aut/aut_config.json")
+def get_config(config_file="~/.aut/aut_config.json"):
+    CONFIG_PATH = os.path.expanduser(config_file)
     # Ensure the directory exists, if not, then throw an Exception.
     if not os.path.exists(CONFIG_PATH):
         raise ConfigFileNotFound("The configuration file for the Azure"
-                                 " Utility Tool was not found in"
-                                 " ~/.aut/aut_config.json")
+                                 " Utility Tool was not found in " +
+                                 config_file)
     return json.load(open(CONFIG_PATH))

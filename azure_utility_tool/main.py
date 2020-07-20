@@ -44,11 +44,11 @@ for output_module in SUPPORTED_OUTPUTS:
 # Turn on logging for everything
 logging.basicConfig(level=logging.DEBUG)
 
-# Get config
-config = config.get_config()
-
 # Get and build arguments
 parsed_args = get_parser().parse_args()
+
+# Get config
+config = config.get_config(parsed_args.config)
 
 # Create a long-lived app instance which maintains a token cache.
 if not parsed_args.smoke:

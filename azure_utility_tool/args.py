@@ -71,6 +71,12 @@ def get_parser():
             required=False,
             choices=['sharepoint'],
             help="Where to publish the results, if a file is outputed")
+    parser.add_argument(
+            '-c',
+            '--config',
+            required=False,
+            default="~/.aut/aut_config.json",
+            help="The configuration file to use")
     return parser
 
 def _build_action_help_string():
