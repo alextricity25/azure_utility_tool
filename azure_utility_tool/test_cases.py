@@ -236,3 +236,196 @@ class TestCases():
             "securityIdentifier": "S-1-12-1-3133127136-1221695915-1674307470-3465549323",
             }
         return data
+
+    def get_application_test_data(self):
+        data = {
+            "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#applications",
+            "value": [
+                {
+                    "addIns": [],
+                    "api": {
+                        "acceptMappedClaims": None,
+                        "knownClientApplications": [],
+                        "oauth2PermissionScopes": [
+                            {
+                                "adminConsentDescription": "Allow the application to access TestApp OnDemand on behalf of the signed-in user.",
+                                "adminConsentDisplayName": "Access TestApp OnDemand",
+                                "id": "asdf356c8-8b99-480c-be07-a21a1cd35ef6",
+                                "isEnabled": True,
+                                "type": "User",
+                                "userConsentDescription": "Allow the application to access TestApp OnDemand on your behalf.",
+                                "userConsentDisplayName": "Access TestApp OnDemand",
+                                "value": "user_impersonation"
+                            }
+                        ],
+                        "preAuthorizedApplications": [],
+                        "requestedAccessTokenVersion": None
+                    },
+                    "appId": "480e1db5-6da4-46e3-8fd5-48f2d9a0f171",
+                    "appRoles": [
+                        {
+                            "allowedMemberTypes": [
+                                "User"
+                            ],
+                            "description": "msiam_access",
+                            "displayName": "msiam_access",
+                            "id": "b9632174-c057-4dfe-951b-be3adc52bfe6",
+                            "isEnabled": True,
+                            "origin": "Application",
+                            "value": None
+                        },
+                        {
+                            "allowedMemberTypes": [
+                                "User"
+                            ],
+                            "description": "User",
+                            "displayName": "User",
+                            "id": "18d14569-asdf-439b-9a66-3a2aee01d14f",
+                            "isEnabled": True,
+                            "origin": "Application",
+                            "value": None
+                        }
+                    ],
+                    "applicationTemplateId": None,
+                    "createdDateTime": "2016-08-10T22:24:57Z",
+                    "deletedDateTime": None,
+                    "displayName": "TestApp OnDemand",
+                    "groupMembershipClaims": None,
+                    "id": "015b2bd3-80b6-4faf-asdf-914ec398d125",
+                    "identifierUris": [
+                        "https://blah",
+                        "http://cadfaiosdf",
+                    ],
+                    "info": {
+                        "logoUrl": "https://blah",
+                        "marketingUrl": None,
+                        "privacyStatementUrl": None,
+                        "supportUrl": None,
+                        "termsOfServiceUrl": None
+                    },
+                    "isDeviceOnlyAuthSupported": None,
+                    "isFallbackPublicClient": False,
+                    "keyCredentials": [],
+                    "optionalClaims": None,
+                    "parentalControlSettings": {
+                        "countriesBlockedForMinors": [],
+                        "legalAgeGroupRule": "Allow"
+                    },
+                    "passwordCredentials": [],
+                    "publicClient": {
+                        "redirectUris": []
+                    },
+                    "publisherDomain": None,
+                    "requiredResourceAccess": [],
+                    "signInAudience": "AzureADMyOrg",
+                    "spa": {
+                        "redirectUris": []
+                    },
+                    "tags": [],
+                    "tokenEncryptionKeyId": None,
+                    "web": {
+                        "homePageUrl": "https://127.0.0.1:444/applications/default.aspx?metadata=customappsso|ISV9.1|primary|z",
+                        "implicitGrantSettings": {
+                            "enableAccessTokenIssuance": False,
+                            "enableIdTokenIssuance": True
+                        },
+                        "logoutUrl": None,
+                        "redirectUris": [
+                            "https://blah",
+                            "https://127.0.0.1:444/applications/default.aspx"
+                        ]
+                    }
+                },
+                {
+                    "addIns": [],
+                    "api": {
+                        "acceptMappedClaims": None,
+                        "knownClientApplications": [],
+                        "oauth2PermissionScopes": [
+                            {
+                                "adminConsentDescription": "Allow the application to access TestApp2 on behalf of the signed-in user.",
+                                "adminConsentDisplayName": "Access TestApp2",
+                                "id": "96vejje5-d9c1-4f0b-9754-5bc6fd7b6b72",
+                                "isEnabled": True,
+                                "type": "User",
+                                "userConsentDescription": "Allow the application to access TestApp2 on your behalf.",
+                                "userConsentDisplayName": "Access TestApp2",
+                                "value": "user_impersonation"
+                            }
+                        ],
+                        "preAuthorizedApplications": [],
+                        "requestedAccessTokenVersion": None
+                    },
+                    "appId": "b218ce2c-5ea2-4e02-bcdc-0cacd088e22a",
+                    "appRoles": [
+                        {
+                            "allowedMemberTypes": [
+                                "User"
+                            ],
+                            "description": "User",
+                            "displayName": "User",
+                            "id": "18ddff69-c3bd-439b-9a66-3a2aee01d14f",
+                            "isEnabled": True,
+                            "origin": "Application",
+                            "value": None
+                        },
+                        {
+                            "allowedMemberTypes": [
+                                "User"
+                            ],
+                            "description": "msiam_access",
+                            "displayName": "msiam_access",
+                            "id": "b96asdf74-c057-4f7e-951b-be3adc52bfe6",
+                            "isEnabled": True,
+                            "origin": "Application",
+                            "value": None
+                        }
+                    ],
+                    "applicationTemplateId": None,
+                    "createdDateTime": "2019-02-28T19:24:29Z",
+                    "deletedDateTime": None,
+                    "displayName": "TestApp2",
+                    "groupMembershipClaims": None,
+                    "id": "015adfe-79f3-44fe-bc68-e2a852532ee4",
+                    "identifierUris": [
+                        "blah2"
+                    ],
+                    "info": {
+                        "logoUrl": None,
+                        "marketingUrl": None,
+                        "privacyStatementUrl": None,
+                        "supportUrl": None,
+                        "termsOfServiceUrl": None
+                    },
+                    "isDeviceOnlyAuthSupported": None,
+                    "isFallbackPublicClient": False,
+                    "keyCredentials": [],
+                    "optionalClaims": None,
+                    "parentalControlSettings": {
+                        "countriesBlockedForMinors": [],
+                        "legalAgeGroupRule": "Allow"
+                    },
+                    "passwordCredentials": [],
+                    "publicClient": {
+                        "redirectUris": []
+                    },
+                    "publisherDomain": "Sysco.onmicrosoft.com",
+                    "requiredResourceAccess": [],
+                    "signInAudience": "AzureADMyOrg",
+                    "spa": {
+                        "redirectUris": []
+                    },
+                    "tags": [],
+                    "tokenEncryptionKeyId": None,
+                    "web": {
+                        "homePageUrl": "https://account.activedirectory.windowsazure.com:444/applications/default.aspx?metadata=customappsso|ISV9.1|primary|z",
+                        "implicitGrantSettings": {
+                            "enableAccessTokenIssuance": False,
+                            "enableIdTokenIssuance": True
+                        },
+                        "logoutUrl": None,
+                        "redirectUris": [
+                            "blash",
+                            "blasdfi"
+                        ]}}]}
+        return data

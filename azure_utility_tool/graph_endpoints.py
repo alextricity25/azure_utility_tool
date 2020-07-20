@@ -122,3 +122,9 @@ USER_GETMEMBERGROUPS = (GRAPH_V1_BASE_URL +
 GROUP_GET = (GRAPH_V1_BASE_URL +
             "/groups/"
             "{}")
+
+### List applications
+### See:
+### https://docs.microsoft.com/en-us/graph/api/application-list?view=graph-rest-1.0&tabs=http
+LIST_APPLICATIONS = (GRAPH_V1_BASE_URL +
+                     "/applications")

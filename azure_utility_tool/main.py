@@ -27,7 +27,8 @@ SUPPORTED_ACTIONS = {
         "list_all_users": None,
         "list_all_users_mfa": None,
         "get_users_from_enforced_groups": None,
-        "get_upn_from_id": None
+        "get_upn_from_id": None,
+        "list_all_applications": None
         }
 
 SUPPORTED_OUTPUTS = {
