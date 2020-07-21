@@ -429,3 +429,119 @@ class TestCases():
                             "blasdfi"
                         ]}}]}
         return data
+
+    def get_service_principal_test_data(self):
+        data = {
+            "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#servicePrincipals",
+            "value": [
+                {
+                    "id": "002a56ea-4fff-48f4-a0aa-242a3f2b4ce1b",
+                    "deletedDateTime": None,
+                    "accountEnabled": True,
+                    "alternativeNames": [],
+                    "appDisplayName": "TestApp",
+                    "appId": "802343f6-7c06-4aed-a0e3-cabed003d4ea",
+                    "applicationTemplateId": None,
+                    "appOwnerOrganizationId": "b7aa2348-bf33-414f-9971-6e0c972cbe5d",
+                    "appRoleAssignmentRequired": True,
+                    "displayName": "TestApp",
+                    "homepage": "https://account.activedirectory.windowsazure.com:444/applications/default.aspx?metadata=customappsso|ISV9.1|primary|z",
+                    "loginUrl": None,
+                    "logoutUrl": None,
+                    "notificationEmailAddresses": [],
+                    "preferredSingleSignOnMode": None,
+                    "preferredTokenSigningKeyThumbprint": "DB2A1B08423407CA26280DFA722CA782CE6CC68E",
+                    "replyUrls": [
+                        "https://blah"
+                    ],
+                    "samlSingleSignOnSettings": None,
+                    "servicePrincipalNames": [
+                        "test-app",
+                        "234234-fasdf-7c06-4aed-a0e3-cabed003d4ea"
+                    ],
+                    "servicePrincipalType": "Application",
+                    "tags": [
+                        "8ad23423e-67b2-4cf2-a259-e3dc5476c621",
+                        "WindowsAzureActiveDirectoryGalleryApplicationNonPrimaryV1",
+                        "WindowsAzureActiveDirectoryCustomSingleSignOnApplication",
+                        "WindowsAzureActiveDirectoryIntegratedApp"
+                    ],
+                    "tokenEncryptionKeyId": None,
+                    "addIns": [],
+                    "appRoles": [
+                        {
+                            "allowedMemberTypes": [
+                                "User"
+                            ],
+                            "description": "User",
+                            "displayName": "User",
+                            "id": "18d2344569-c3bd-439b-9a66-3a2aee01d14f",
+                            "isEnabled": True,
+                            "origin": "Application",
+                            "value": None
+                        },
+                        {
+                            "allowedMemberTypes": [
+                                "User"
+                            ],
+                            "description": "msiam_access",
+                            "displayName": "msiam_access",
+                            "id": "b9655574-c057-4f7e-951b-be3adc52bfe6",
+                            "isEnabled": True,
+                            "origin": "Application",
+                            "value": None
+                        }
+                    ],
+                    "info": {
+                        "logoUrl": None,
+                        "marketingUrl": None,
+                        "privacyStatementUrl": None,
+                        "supportUrl": None,
+                        "termsOfServiceUrl": None
+                    },
+                    "keyCredentials": [
+                        {
+                            "customKeyIdentifier": "U52Qe+2kWA2jfiytRq9kQs/1fVGTD2GpKwe0WENFmdWs=",
+                            "displayName": "CN=Microsoft Azure Federated SSO Certificate",
+                            "endDateTime": "2053-09-25T15:29:10Z",
+                            "key": None,
+                            "keyId": "8d1b4519-c126-43ab-ba15-12e5082d952f",
+                            "startDateTime": "2012-09-25T15:29:10Z",
+                            "type": "AsymmetricX509Cert",
+                            "usage": "Verify"
+                        },
+                        {
+                            "customKeyIdentifier": "U52Qe+2kWA234ytRq9kQs/1fVGTD2GpKwe0WENFmdWs=",
+                            "displayName": "CN=Microsoft Azure Federated SSO Certificate",
+                            "endDateTime": "2026-09-25T15:29:10Z",
+                            "key": None,
+                            "keyId": "d401231-5ea8-4bf7-b8e6-67c9f14f84eb",
+                            "startDateTime": "2019-09-25T15:29:10Z",
+                            "type": "AsymmetricX509Cert",
+                            "usage": "Sign"
+                        }
+                    ],
+                    "oauth2PermissionScopes": [
+                        {
+                            "adminConsentDescription": "Allow the application to access TestApp on behalf of the signed-in user.",
+                            "adminConsentDisplayName": "Access TestApp",
+                            "id": "ef6271ce-8123-47f0-9f92-ba54c4c59cab",
+                            "isEnabled": True,
+                            "type": "User",
+                            "userConsentDescription": "Allow the application to access TestApp on your behalf.",
+                            "userConsentDisplayName": "Access TestApp",
+                            "value": "user_impersonation"
+                        }
+                    ],
+                    "passwordCredentials": [
+                        {
+                            "customKeyIdentifier": "U52Qe+2kWA6kiyt234kQs/1fVGTD2GpKwe0WENFmdWs=",
+                            "displayName": "CN=Microsoft Azure Federated SSO Certificate",
+                            "endDateTime": "2043-09-25T15:29:10Z",
+                            "hint": None,
+                            "keyId": "d407dfe-5ea8-4bf7-b8e6-67c9f14f84eb",
+                            "secretText": None,
+                            "startDateTime": "2011-09-25T15:29:10Z"
+                        }]}]}
+
+        return data

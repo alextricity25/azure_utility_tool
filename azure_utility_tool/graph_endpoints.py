@@ -128,3 +128,8 @@ GROUP_GET = (GRAPH_V1_BASE_URL +
 ### https://docs.microsoft.com/en-us/graph/api/application-list?view=graph-rest-1.0&tabs=http
 LIST_APPLICATIONS = (GRAPH_V1_BASE_URL +
                      "/applications")
+
+### List service principals
+### See:
+### https://docs.microsoft.com/en-us/graph/api/serviceprincipal-list?view=graph-rest-1.0&tabs=http
+LIST_SERVICE_PRINCIPALS = GRAPH_V1_BASE_URL + "/serviceprincipals"
