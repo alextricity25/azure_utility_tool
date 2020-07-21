@@ -27,5 +27,5 @@ def list_all_service_principals(parsed_args, config, app):
             std_output=False)
     sps = {}
     for entry in sp_entries:
-        sps[entry["id"]] = entry
+        sps[entry["appId"]] = entry
     return sps

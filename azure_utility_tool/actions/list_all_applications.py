@@ -26,5 +26,5 @@ def list_all_applications(parsed_args, config, app):
             std_output=False)
     applications = {}
     for entry in application_entries:
-        applications[entry["id"]] = entry
+        applications[entry["appId"]] = entry
     return applications
