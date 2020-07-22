@@ -133,3 +133,19 @@ LIST_APPLICATIONS = (GRAPH_V1_BASE_URL +
 ### See:
 ### https://docs.microsoft.com/en-us/graph/api/serviceprincipal-list?view=graph-rest-1.0&tabs=http
 LIST_SERVICE_PRINCIPALS = GRAPH_V1_BASE_URL + "/serviceprincipals"
+
+### List appRoleAssignments granted for a service principal
+### See:
+### https://docs.microsoft.com/en-us/graph/api/serviceprincipal-list-approleassignedto?view=graph-rest-1.0&tabs=http
+APP_ROLE_ASSIGNED_TO = (GRAPH_V1_BASE_URL +
+                       "/servicePrincipals/"
+                       "{}/"
+                       "appRoleAssignedTo")
+
+### List signins for application
+### See:
+### https://docs.microsoft.com/en-us/graph/api/signin-list?view=graph-rest-1.0&tabs=http
+LIST_SIGNINS_FOR_APP = (GRAPH_V1_BASE_URL +
+                        "/auditLogs/"
+                        "signIns"
+                        "?$filter=appId eq \'{}\'")

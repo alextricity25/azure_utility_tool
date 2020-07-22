@@ -29,7 +29,8 @@ SUPPORTED_ACTIONS = {
         "get_users_from_enforced_groups": None,
         "get_upn_from_id": None,
         "list_all_applications": None,
-        "list_all_service_principals": None
+        "list_all_service_principals": None,
+        "sso_app_report": None
         }
 
 SUPPORTED_OUTPUTS = {
