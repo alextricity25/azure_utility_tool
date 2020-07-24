@@ -31,7 +31,7 @@ def filter_out(result, filter_data):
         raise Exception("Must pass a dictionary as filter_data when using filter_out")
     for userPrincipalName, data in result_copy.items():
         for attribute, values in filter_data.items():
-            if data.get('attribute', '') in values:
+            if data.get(attribute, '') in values:
                 result.pop(userPrincipalName, "Not found")
 
 
