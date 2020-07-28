@@ -7,6 +7,8 @@ Description:
     by the action modules
 """
 
+import logging
+
 def filter_result(result, config):
     """
     Applies all filters
@@ -31,7 +33,8 @@ def filter_out(result, filter_data):
         raise Exception("Must pass a dictionary as filter_data when using filter_out")
     for userPrincipalName, data in result_copy.items():
         for attribute, values in filter_data.items():
-            if data.get(attribute, '') in values:
-                result.pop(userPrincipalName, "Not found")
-
-
+            for value in values:
+                if data.get(attribute, '') in value:
+                    result.pop(userPrincipalName, "Not found")
+                    logging.info("Removing {}".format(userPrincipalName))
+                    logging.info("{} contains {} for this user. filter_out rule matched".format(attribute, value))

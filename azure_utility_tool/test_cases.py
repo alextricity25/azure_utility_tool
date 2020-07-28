@@ -16,7 +16,7 @@ class TestCases():
             'id': '8d2be0b3-5815-4234-b1c4-db8be9388def',
             'isResourceAccount': None,
             'jobTitle': 'A/P Supervisor',
-            'mail': 'randomacc057@kc.company.com',
+            'mail': '',
             'officeLocation': None,
             'onPremisesExtensionAttributes': {'extensionAttribute1': None,
                                               'extensionAttribute10': None,
