@@ -65,7 +65,14 @@ else:
 # Run action
 result = getattr(SUPPORTED_ACTIONS[parsed_args.action], parsed_args.action)(parsed_args, config, app)
 result = apply_filters.filter_result(result, config)
-output = getattr(SUPPORTED_OUTPUTS[parsed_args.output], parsed_args.output)(parsed_args.action, result)
+
+# If the file name was specified in the command line, then pass that to the
+# output module. Otherwise, make the file name the same as the action name.
+if parsed_args.file_name:
+    file_name = parsed_args.file_name
+else:
+    file_name = parsed_args.action
+output = getattr(SUPPORTED_OUTPUTS[parsed_args.output], parsed_args.output)(file_name, result)
 #result = getattr(, parsed_args.action)#(parsed_args, config, app)
 #pprint.pprint(result)
 #print("FINISHED SUCCESSFULLY!")

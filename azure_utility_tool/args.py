@@ -63,6 +63,11 @@ def get_parser():
             required=True,
             help="The output module to use")
     parser.add_argument(
+            '-f',
+            '--file-name',
+            required=False,
+            help="The name of the output file if the output module writes to a file")
+    parser.add_argument(
             '-i',
             '--input-file',
             required=False,
