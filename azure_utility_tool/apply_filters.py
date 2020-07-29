@@ -34,7 +34,10 @@ def filter_out(result, filter_data):
     for userPrincipalName, data in result_copy.items():
         for attribute, values in filter_data.items():
             for value in values:
-                if data.get(attribute, '') in value:
+                # TODO
+                # We have to add logic here to consider attributes that are
+                # empty and the user wants to remove
+                if data.get(attribute, '') != None and data.get(attribute, '') in value:
                     result.pop(userPrincipalName, "Not found")
                     logging.info("Removing {}".format(userPrincipalName))
                     logging.info("{} contains {} for this user. filter_out rule matched".format(attribute, value))
