@@ -33,6 +33,14 @@ def filter_out(result, filter_data):
         raise Exception("Must pass a dictionary as filter_data when using filter_out")
     for userPrincipalName, data in result_copy.items():
         for attribute, values in filter_data.items():
+            # If the attribute cannot be found in the data, then skip this
+            # attribute when filtering
+            try:
+                data[attribute]
+            except KeyError:
+                logging.info("{} could not be found in this object".format(
+                    attribute))
+                continue
             for value in values:
                 # TODO
                 # We have to add logic here to consider attributes that are
