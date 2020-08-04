@@ -148,4 +148,4 @@ APP_ROLE_ASSIGNED_TO = (GRAPH_V1_BASE_URL +
 LIST_SIGNINS_FOR_APP = (GRAPH_V1_BASE_URL +
                         "/auditLogs/"
                         "signIns"
-                        "?$filter=appId eq \'{}\'")
+                        "?&$filter=appId eq \'{}\'")
