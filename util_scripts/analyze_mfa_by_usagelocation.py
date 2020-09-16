@@ -32,7 +32,12 @@ def populate_schema():
         all_enforced_accounts = 0
         with open(file_path) as csvfile:
             mfa_report_reader = csv.reader(csvfile, dialect='excel')
+            row_num = 0
             for row in mfa_report_reader:
+                # Skip the header of the report
+                if row_num == 0:
+                    row_num += 1
+                    continue
                 if row[8] not in usage_locations.keys():
                     usage_locations[row[8]] = {
                             'eligible_accounts': 0,
@@ -51,19 +56,50 @@ def populate_schema():
                 # If account is enforced, then increment all_enforced_accounts
                 if row[-1] == 'True':
                     usage_locations[row[8]]['enforced_accounts'] += 1
+                row_num += 1
     print(schema)
+
+
+def generate_header():
+    header = set()
+    for day, locations in schema.items():
+        for location in locations:
+            header.add(location)
+    return header
+
+
+def generate_csv(header):
+    output_fp = open('/mfa_reports/csv/mfa_day_by_day_breakdown.csv', 'w', encoding='utf-8')
+    csv_writer = csv.writer(output_fp)
+    header = list(header)
+    # Insert empty cell
+    header.insert(0, "")
+    csv_writer.writerow(header)
+
+    for date in schema.keys():
+        entry = []
+        entry.append(date)
+        for location in header[1:]:
+            location_data = schema.get(date, {})
+            accounts_info_for_location = location_data.get(location, {})
+            enforced_accounts = accounts_info_for_location.get('enforced_accounts', -1)
+            eligible_accounts = accounts_info_for_location.get('eligible_accounts', -1)
+            entry.append((enforced_accounts/eligible_accounts)*100)
+        csv_writer.writerow(entry)
+
+    output_fp.close()
+
+    pass
 
 # Main program
 # Populating schema
 populate_schema()
+header = generate_header()
+generate_csv(header)
+print(header)
 
 
 
-def generate_header():
-    pass
-
-def generate_csv():
-    pass
 
 def calculate_percentage():
     pass
