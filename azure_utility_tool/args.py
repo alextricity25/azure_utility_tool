@@ -22,7 +22,8 @@ SUPPORTED_ACTIONS = {
         "get_upn_from_id": None,
         "list_all_applications": None,
         "list_all_service_principals": None,
-        "sso_app_report": None
+        "sso_app_report": None,
+        "get_num_signins_for_user": None,
         }
 
 # Importing supported actions

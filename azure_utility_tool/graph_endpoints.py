@@ -149,3 +149,11 @@ LIST_SIGNINS_FOR_APP = (GRAPH_V1_BASE_URL +
                         "/auditLogs/"
                         "signIns"
                         "?&$filter=appId eq \'{}\'")
+
+### List signins for user (up to 100)
+### See:
+### https://docs.microsoft.com/en-us/graph/api/signin-list?view=graph-rest-1.0&tabs=http
+LIST_SIGNINS_FOR_USER = (GRAPH_V1_BASE_URL +
+                        "/auditLogs/"
+                        "signIns"
+                        "?&$filter=userPrincipalName eq \'{}\'&$top=100")

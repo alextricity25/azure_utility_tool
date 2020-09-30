@@ -11,7 +11,7 @@ import json
 import time
 import pdb
 
-def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}, throttle=0, retry_count=0):
+def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, test_data=None, std_output=True, payload={}, throttle=0, retry_count=0, skiptoken=True):
     """
     This methods takes and endpoint, and continues to make a get request
     so long as the @odata.nextLink entry is returned.
@@ -31,6 +31,8 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
                      to false otherwise.
         payload - Used for POST requests on an endpoint
         throttle - How to long to wait, in seconds, between each API call.
+        skiptoken - will determine if this method will recursively paginate
+                    the results.
     """
     # Make the first request
     if not parsed_args.smoke:
@@ -115,7 +117,7 @@ def paginate(endpoint, data, key, parsed_args, config, app, transformer=None, te
         data.extend(graph_data.get(key, ""))
 
     # Recursively follow nextLink
-    if graph_data.get("@odata.nextLink", ""):
+    if graph_data.get("@odata.nextLink", "") and skiptoken:
         time.sleep(throttle)
         return paginate(
                 graph_data["@odata.nextLink"],
