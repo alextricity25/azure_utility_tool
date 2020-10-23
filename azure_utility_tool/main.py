@@ -36,7 +36,8 @@ SUPPORTED_ACTIONS = {
 
 SUPPORTED_OUTPUTS = {
         "csv": None,
-        "stdout": None
+        "stdout": None,
+        "json": None
 }
 for action in SUPPORTED_ACTIONS.keys():
     SUPPORTED_ACTIONS[action] = importlib.import_module("actions.{}".format(action), package="azure_utility_tool")
