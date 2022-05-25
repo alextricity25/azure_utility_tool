@@ -6,7 +6,7 @@ idna==2.9
 msal==1.2.0
 pkg-resources==0.0.0
 pycparser==2.20
-PyJWT==1.7.1
+PyJWT==2.4.0
 requests==2.23.0
 six==1.14.0
 urllib3==1.25.8
